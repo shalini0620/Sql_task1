@@ -1,0 +1,55 @@
+DML_DDL_Interview_operations
+
+# 1) How to insert multiple records in a table ?
+use mydb
+INSERT INTO orders (order_id,customer_id,order_date,product,product_id,arrival_date,dispatch_date,sender_location,receiver_location)
+VALUES
+(116,2,'2023-06-25','laptop','LT06','2023-06-30','2023-06-26','Seattle,WA','Los Angeles,CA'),  
+(117,5,'2023-05-06','mouse','M05','2023-05-13','2023-05-07','Chicago,IL','San Francisco,CA'),
+(120,8,'2023-02-21','tablet','T06','2023-03-02','2023-02-23','Boston,MA','Dallas,TX'),
+(119,4,'2023-01-30','earphone','EP08','2023-02-03','2023-01-31','Miami,FL','Houston,TX'),
+(118,6,'2023-04-12','keyboard','KB08','2023-04-17','2023-04-13','New York,NY','Miami,FL');
+select * from orders;
+=================================================================================================================================================================
+
+# 2) How to add additional column in a table ?
+alter table customer add column mobile_no varchar(15) check(length (mobile_no) = 10);
+select * from customer;
+desc customer;
+=================================================================================================================================================================
+
+# 3) How to change the constraint in the table ?
+# a) DROP the constraint
+alter table orders drop primary key ;
+# b) add new constraint 
+alter table orders add constraint pk_orders primary key (order_id);
+desc orders;
+=================================================================================================================================================================
+
+# 4) how to alter the column name in a table ?
+alter table customer rename column cust_name to customer_name;
+desc customer;
+=================================================================================================================================================================
+
+# 5) how to change the table name ?
+alter table orders rename to orders_1; 
+select * from orders_1;
+select * from orders;  
+alter table orders_1 rename to orders;
+=================================================================================================================================================================
+
+# 6) how to change the particular value in a table ?
+update customer set mobile_no = '9894199940' where customer_name = 'John Doe';
+update customer set mobile_no = '+91 9994098941' where cust_id = 2;  # error check constraints violated.
+update customer set mobile_no = '9994098941' where cust_id = 2; 
+update customer set mobile_no = '8667295975' where city = 'chicago';
+update customer set mobile_no = '9994095975' where state ='TX' ;
+update customer set mobile_no = '9994098942' where cust_id = 5; 
+update customer set mobile_no = '9894199941' where customer_name = 'Sarah Thompson'; 
+update customer set mobile_no = '8667295976' where cust_id = 7; 
+update customer set mobile_no = '9597586675' where state = 'MA'; 
+update customer set mobile_no = '9402658491' where city = 'Seattle'; 
+select customer_name,mobile_no from customer order by customer_name asc;
+=================================================================================================================================================================
+
+    
